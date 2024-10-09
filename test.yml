@@ -33,6 +33,20 @@
       become: true
       become_user: root
 
+    # - name: modifier paramètre ipv6
+    #   lineinfile:
+    #     path: /etc/proftpd/proftpd.conf
+    #     regexp: UseIPv6 on
+    #     line: UseIPv6 off
+    #   become: true
+    #   become_user: root
+    # - name: modifier nom du serveur
+    #   lineinfile:
+    #     path: /etc/proftpd/proftpd.conf
+    #     regexp: ServerName "Debian"
+    #     line: ServerName "Server1"
+    #   become: true
+    #   become_user: root
     - name: Configurer le service `proftpd`
       template:
         src: /home/admin/Documents/DevOps-Deploy-a-website-with-ansible/template/proftpd.conf
