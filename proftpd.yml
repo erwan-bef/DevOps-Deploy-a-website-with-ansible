@@ -1,0 +1,41 @@
+---
+- name: configuration serveur ftp
+  hosts: server1
+  vars:
+    server_name: "server1"
+    use_ip_v6: "off"
+
+  tasks:
+    - name: mettre à jour les paquets
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+      become: true
+      become_user: root
+
+    - name: Installer proftpd
+      apt:
+        name: proftpd
+      become: true
+      become_user: root
+
+    - name: lancer proftpd au démarrage
+      service:
+        name: proftpd
+        state: started
+        enabled: true
+      become: true
+      become_user: root
+
+    - name: Installer ftp
+      apt:
+        name: ftp
+      become: true
+      become_user: root
+
+    - name: Configurer le service `proftpd`
+      template:
+        src: /home/admin/Documents/DevOps-Deploy-a-website-with-ansible/template/proftpd.conf
+        dest: /etc/proftpd/proftpd.conf
+      become: true
+      become_user: root
